@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Register</title>
+{% endblock %}
+
+{% block pageheader %}
+Register
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6" class='mx-auto'>
+    <h2 align='center'>User SignUp</h2>
+    <hr>
+    <form action="/register" method="POST" class="form-horizontal" role="form">
+      <div class="mb-3">
+        <input required type="email" class="form-control" name="email" id="email_new"  placeholder="Enter Email Address">
+      </div>
+      <div class="mb-3">
+        <input required type="text" class="form-control"  name="username" id="username_new"  placeholder="Enter username">
+      </div>
+
+      <div class="mb-3">
+        <input required type="password" class="form-control"  name="password" id="password_new"  placeholder="Enter password">
+      </div>
+
+      <div class="mb-3">
+        <input required type="password" class="form-control"  name="repeat_password" id="password_confirm"  placeholder="Enter password again">
+      </div>
+
+
+      <div class="mb-3">
+        <div>
+          <button type="submit" class="btn btn-primary">SignUp</button>
+          <a href="/login" style="float: right; padding-top: 14px;">I have an account, login now?</a>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

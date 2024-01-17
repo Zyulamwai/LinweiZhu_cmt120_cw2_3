@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Edit Blog</title>
+{% endblock %}
+
+{% block pageheader %}
+Edit Blog
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10" class='mx-auto'>
+        <h2 align='center'>Edit Post</h2>
+        <hr>
+        <form action="/admin_editblog/{{blog.id}}" method="POST" class="form-horizontal" role="form"enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Subject:</label>
+                <input required type="text" name="title" class="form-control" id="title" value="{{blog.title}}">
+            </div>
+
+            <div class="mb-3">
+                <label for="detail" class="form-label">Description:</label>
+                <textarea required class="form-control" name="desc" id="" rows="5"> {{blog.desc}} </textarea>
+            </div>
+            <div class="mb-3">
+                <label for="detail"  class="form-label">Detail:</label>
+                <textarea required class="form-control" name="detail" id="" rows="15"> {{blog.detail}} </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for=""  class="form-label">Category:</label>
+                <select required class="custom-select" name="category" id="category">
+                    {% for item in CATEGORYS %}
+                        {% if item == blog.category %}
+                        <option value="{{ item }}" selected>{{ item }}</option>
+                        {% else %}
+                        <option value="{{ item }}">{{ item }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Picture:</label>
+                <input type="file" class="form-control-file" name="image" id="image" placeholder=""
+                    aria-describedby="fileHelpId">
+                <small id="fileHelpId" class="form-text text-muted">Only support .png, .jpp, .jpeg file
+                    type</small>
+            </div>
+
+            <div class="mb-3">
+                <div class="text-center">
+                    <button type="submit" class="col-md-2 btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% from '_macro.html' import my_paginate %}
+{% block title %}
+<title>Admin</title>
+{% endblock %}
+
+{% block pageheader %}
+Admin Blogs
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">QueryBox</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <table class="table tbquery">
+                        <tr>
+                            <td>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">Category</span>
+                                    <select  class="form-control" name="category" id="category">
+                                        <option value=""> Choose Category </option>
+                                        {% for item in CATEGORYS %}
+                                            <option value="{{ item }}">{{ item }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">Keyword</span>
+                                    <input class="form-control" type="text" name="keyword" placeholder="Enter keyword" >
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group input-group-sm">
+                                    <button class="btn btn-primary form-control" type="submit">Search</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0 float-start">Blogs</h5>
+                {% if session.get('admin') == 1 %}
+                <a href="/admin_addblog" class="btn btn-sm btn-primary float-end"  role="button"> <i class="bi bi-plus-circle"></i>
+                    New Blog </a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                {% if blogs %}
+                <table class="table table-striped table-bordered table-inverse tbresult " cellpadding="0" cellspacing="0">
+                    <thead class="thead-inverse">
+                        <tr class="text-center">
+                            <th> No. </th>
+                            <th> Picture </th>
+                            <th> Category </th>
+                            <th> Subject </th>
+                            <th> Description </th>
+                            <th> Operation </th>
+                        </tr>
+                    </thead>
+                    <tbody class="y-auto">
+
+                        {% for blog in blogs %}
+                        <tr class="text-center">
+                            <td>{{ loop.index }}</td>
+                            <td><img class="m-auto rounded" src="{{blog.imagepath}}" style="height: 60px; width: 60px;"></td>
+                            <td> {{ blog.category }} </td>
+                            <td> {{ blog.title }} </td>
+                            <td> {{ blog.detail|truncate(100)}}  </td>
+                            <td>
+                                <div class="btn-group">
+                                <a class="btn btn-sm btn-info" href="/admin_editblog/{{blog.id}}" role="button"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn btn-sm btn-danger" href="/admin_delblog/{{blog.id}}" role="button"><i class="bi bi-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if paginate %}
+                  {{ my_paginate(paginate, 'admin_blogs') }}
+                {% endif %}
+                {% else %}
+                <p>No records to display！</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Add Blog</title>
+{% endblock %}
+
+{% block pageheader %}
+Add Blog
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10" class='mx-auto'>
+        <h2 align='center'>New Blog</h2>
+        <hr>
+        <form action="/admin_addblog" method="POST" class="form-horizontal" role="form"enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Subject:</label>
+                <input required type="text" name="title" class="form-control" id="title" value="">
+            </div>
+            <div class="mb-3">
+                <label for="detail" class="form-label">Description:</label>
+                <textarea required class="form-control" name="desc" id="" rows="5"> </textarea>
+            </div>
+            <div class="mb-3">
+                <label for="detail"  class="form-label">Detail:</label>
+                <textarea required class="form-control" name="detail" id="" rows="15">  </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for=""  class="form-label">Category:</label>
+                <select required class="custom-select" name="category" id="category">
+                    <option value="">Choose one category</option>
+                    {% for item in CATEGORYS %}
+                        <option value="{{ item }}">{{ item }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Picture:</label>
+                <input type="file" class="form-control-file" name="image" id="image" placeholder=""
+                    aria-describedby="fileHelpId">
+                <small id="fileHelpId" class="form-text text-muted">Only support .png, .jpp, .jpeg file
+                    type</small>
+            </div>
+
+            <div class="mb-3">
+                <div class="text-center">
+                    <button type="submit" class="col-md-2 btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

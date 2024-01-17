@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Blogs</title>
+{% endblock %}
+
+{% block pageheader %}
+Blog
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mb-3">
+    <div class="col-md-11" class='mx-auto'>
+        <h2 align='center' class="posttitle">{{blog.title}}</h2>
+        <p class="info text-center">
+            <span> Category: <i> {{blog.category}}</i>
+            </span> <span> Post At:<i>{{blog.post_dt}} </i> </span>
+            <span> Comments: <i> {{blog.get_comment()}} </i></span>
+        </p>
+        <div class="row mt-4 mb-4">
+            <img class="m-auto rounded" src="{{blog.imagepath}}" style="height: 300px; width: 300px;">
+        </div>
+        <div class='mt-4 mb-5'>
+            <p class='article_detail'>{{ blog.detail|safe}}</p>
+        </div>
+        <hr>
+        <h4>Comments</h4>
+        {% if comments %}
+        <div id="comment" class="comment_text mb-5">
+            {% for comment in comments %}
+            <div class="row mt-4 border-bottom border-gray pb-2">
+                <div class="col-md-1">#{{loop.index}}</div>
+                <div class="col-md-6">{{comment.comment}}</div>
+                <div class="col-md-2">By: {{comment.username}}</div>
+                <div class="col-md-3">At: {{comment.post_dt.strftime('%m/%d/%Y %H:%M:%S')}}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No comment!</p>
+        {% endif %}
+        <hr>
+        <form action="/addcomment/{{blog.id}}" method="POST" class="form-horizontal" role="form" enctype="multipart/form-data">
+            <h4 for="title">Post Comment:</h4>
+            <div class="form-group">
+                <textarea required class="form-control" name="comment" id="comment" rows="3"></textarea>
+            </div>
+            <div class="mt-3">
+                <div class="text-center">
+                    <button type="submit" class="col-md-2 btn btn-primary">Send Comment</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

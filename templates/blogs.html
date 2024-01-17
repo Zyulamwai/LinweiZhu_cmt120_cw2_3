@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+<!-- {% from '_macro.html' import my_paginate %} -->
+{% block title %}
+<title>Blogs</title>
+{% endblock %}
+
+{% block pageheader %}
+Blogs
+{% endblock %}
+
+{% block content %}
+{% if blogs %}
+{% for blog in blogs %}
+<div class="card mb-3 ">
+    <div class="row g-0 ">
+        <div class="col-md-10">
+            <div class="card-body">
+                <a href="/blog/{{blog.id}}">
+                    <h4 class="card-title">{{blog.title}}</h4>
+                </a>
+                <p class="card-text p-2">{{blog.desc|safe|truncate(400)}}...</p>
+                <p class="info">
+                    <span> Category: <i> {{blog.category}} </i></span>
+                    <span> Post At:<i>{{blog.post_dt}} </i> </span>
+                    <span> Comments: <i> {{blog.get_comment()}} </i></span>
+                </p>
+                <div class="line"></div>
+            </div>
+        </div>
+        <div class="col-md-2 text-center  my-auto">
+            <a href="/blog/{{blog.id}}"><img src="{{blog.imagepath}}" class="rounded-circle "style="width:150px; height: 150px;"></a>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+
+{% if paginate %}
+  {{ my_paginate(paginate, 'blogs') }}
+{% endif %}
+{% else %}
+<p>No blog to display!</p>
+{% endif %}
+{% endblock %}
